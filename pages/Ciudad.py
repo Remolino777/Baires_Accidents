@@ -53,10 +53,7 @@ df3 = load_geoData(data_3)
 
 data_choro = df1.set_index('COMUNA')['Total victimas 2021'].to_dict()
 current_page = st.session_state.get('current_page', 'Map')
-select_comuna = ''
-select_barrio = ''
-select_cat = ''
-new_df = []
+image_path = 'BAM_logo.png'
 
 #_______________________________Muertes x 100000 habitantes  #########
 
@@ -73,7 +70,7 @@ poblacion_2021 = df1['Poblacion 2021'].sum()
 
 #_______________________ Columns
 
-n1, n2 = st.columns([3,1], gap='large')
+n1, n2 = st.columns([3,1], gap='small')
 
 with n1:    #_______________________ Map
     st.subheader('Siniestros en la ciudad de Buenos Aires en el año 2021')
@@ -112,7 +109,7 @@ with n1:    #_______________________ Map
     )
     
 
-    marker_cluster = MarkerCluster().add_to(m)
+    
 
     st_data = st_folium(m, width=700, height=800)
     
@@ -140,3 +137,21 @@ with n2:
     
     st.write('Poblacion Ciudad de Buenos Aires')
     st.subheader(f'{poblacion_2021}  habitantes')     
+    
+    with st.sidebar:
+        st.divider()
+        st.divider()
+        st.divider()
+        st.divider()
+        "---"
+        "---"
+        "---"
+        "---"
+        "---"
+        
+
+        image = 'BAM_logo.png'
+        st.image(load_img(image_path), use_column_width=True)
+
+        st.caption(':grey[Observatorio de la Mobilidad de la ciudad de Buenos Aires. Area de Siniestros -- Baires 2024 --]')
+    
