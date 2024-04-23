@@ -7,6 +7,7 @@ from streamlit_folium import st_folium, folium_static
 from folium.plugins import MarkerCluster
 from PIL import Image
 
+
 #____________________ Page configuration
 
 
@@ -20,6 +21,9 @@ st.set_page_config(
 data_1 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\ETL\siniestros_por_comuna.parquet"  ### Siniestros por comuna
 data_2 =  r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\ETL\siniestros.parquet"  ### Siniestros por tipo
 data_3 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\comunas.geojson"  ### Geodata
+
+
+
 
 a_down = "Arrow_down.png"
 a_up = "Arrow_up.png"
@@ -52,7 +56,7 @@ df3 = load_geoData(data_3)
 #__________________________________________ Global varibles  #########
 
 data_choro = df1.set_index('COMUNA')['Total victimas 2021'].to_dict()
-current_page = st.session_state.get('current_page', 'Map')
+
 image_path = 'BAM_logo.png'
 
 #_______________________________Muertes x 100000 habitantes  #########
