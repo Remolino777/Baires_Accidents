@@ -59,6 +59,21 @@ data_choro = df1.set_index('COMUNA')['Total victimas 2021'].to_dict()
 
 image_path = 'BAM_logo.png'
 
+#____________________________________________Tasa de accidentes anuales
+#____________Tasa anual de accidentes mortales 
+#((accidentes_mortales_moto_anio_anterior - accidentes_mortales_moto_anio_actual)/ accidentes_mortales_moto_anio_anterior) * 100)
+df_filtered_21 = df2[df2['AAAA'] == 2021]
+total_victimas_2021 = df_filtered_21['N_VICTIMAS'].sum()
+
+df_filtered_20 = df2[df2['AAAA'] == 2020]
+total_victimas_2020 = df_filtered_20['N_VICTIMAS'].sum()
+
+
+total_v = (total_victimas_2021 - total_victimas_2020)  
+   
+tasa_total_victimas = round(((total_v/total_victimas_2020)*100), 0)
+
+
 #_______________________________Muertes x 100000 habitantes  #########
 
 #m2021 = muertes por cada 100000 habitantes.
@@ -71,6 +86,12 @@ m2020 = int(((df1['Total victimas 2020'].sum())/(df1['Poblacion 2020'].iloc[0]))
 m100 = m2021-m2020
 
 poblacion_2021 = df1['Poblacion 2021'].sum()
+
+
+
+
+
+
 
 #_______________________ Columns
 
@@ -122,7 +143,7 @@ with n2:
     st.write('Tasa de accidentes anuales')
     col1, col2 = st.columns([1,2], gap='large')
     with col1:
-        st.subheader("23.07%")
+        st.subheader(f'{tasa_total_victimas}%')
     with col2:
         st.image(load_img(a_up), use_column_width=True)
     '---'  
