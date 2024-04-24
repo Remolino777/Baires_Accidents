@@ -1,10 +1,8 @@
 import pandas as pd
 import geopandas as gpd
 import streamlit as st 
-import matplotlib as mlt
 import folium
 from streamlit_folium import st_folium, folium_static
-from folium.plugins import MarkerCluster
 from PIL import Image
 
 
