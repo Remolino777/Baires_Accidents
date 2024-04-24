@@ -3,7 +3,7 @@ Este proyecto de Streamlit permite explorar y analizar datos relacionados con ac
 tránsito en la Ciudad de Buenos Aires. La aplicación consta de tres pestañas principales:
 Pestaña 1: Home
 Es el landing page donde se hace una brebe introduccion de la aplicacion
-
+![Landing page]('D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\img\p1.png')
 
 En esta pestaña, se proporciona información general sobre la Ciudad de Buenos Aires, incluyendo un mapa interactivo que muestra las diferentes comunas y la cantidad de accidentes registrados en el año 2021.
 Pestaña 2: Análisis por Comuna
