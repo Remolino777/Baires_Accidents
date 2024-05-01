@@ -13,10 +13,10 @@ st.set_page_config(
 
 
 #_____________________ Source dataset reading.
-data_1 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\ETL\siniestros_por_comuna.parquet"  ### Siniestros por comuna
-data_2 =  r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\Parquet\victimas_semestre.parquet"  ### Siniestros por tipo Semestre
-data_3 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\Parquet\poblacion.parquet"  #Poblacion
-data_4 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\Parquet\comisarias.parquet"  #Comisarias
+data_1 = "siniestros_por_comuna.parquet"  ### Siniestros por comuna
+data_2 =  "victimas_semestre.parquet"  ### Siniestros por tipo Semestre
+data_3 = "poblacion.parquet"  #Poblacion
+data_4 = "comisarias.parquet"  #Comisarias
 a_down = "Arrow_down.png"
 a_up = "Arrow_up.png"
 image_path = 'BAM_logo.png'

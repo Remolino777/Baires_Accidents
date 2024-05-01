@@ -17,10 +17,10 @@ st.set_page_config(
 
 
 #_____________________ Source dataset reading.
-data_1 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\ETL\siniestros_por_comuna.parquet"  ### Siniestros por comuna
-data_2 =  r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\ETL\siniestros.parquet"  ### Siniestros por tipo
-data_3 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\comunas.geojson"  ### Geodata
-data_4 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\Parquet\comisarias.parquet"
+data_1 = "siniestros_por_comuna.parquet"  ### Siniestros por comuna
+data_2 =  "siniestros.parquet"  ### Siniestros por tipo
+data_3 = "comunas.geojson"  ### Geodata
+data_4 = "comisarias.parquet"
 a_down = "Arrow_down.png"
 a_up = "Arrow_up.png"
 equal = "Equal.png"

@@ -14,11 +14,10 @@ st.set_page_config(
     initial_sidebar_state='auto'
 )
 
-
 #_____________________ Source dataset reading.
-data_1 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\ETL\siniestros_por_comuna.parquet"  ### Siniestros por comuna
-data_2 =  r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\ETL\siniestros.parquet"  ### Siniestros por tipo
-data_3 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\comunas.geojson"  ### Geodata
+data_1 = "siniestros_por_comuna.parquet"  ### Siniestros por comuna
+data_2 =  "siniestros.parquet"  ### Siniestros por tipo
+data_3 = "comunas.geojson"  ### Geodata
 
 
 
