@@ -4,5 +4,3 @@ geopandas
 plotly.express
 folium
 streamlit_folium
-folium.plugins
-math
