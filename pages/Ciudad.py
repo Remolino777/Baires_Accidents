@@ -3,7 +3,7 @@ import geopandas as gpd
 import streamlit as st 
 import folium
 from streamlit_folium import st_folium, folium_static
-from PIL import Image
+import plotly.express as px
 
 
 #____________________ Page configuration
