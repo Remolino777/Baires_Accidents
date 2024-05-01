@@ -39,11 +39,7 @@ def load_geoData(geo_file_path):
     df = gpd.read_file(geo_file_path)
     return df
 
-@st.cache_resource
-def load_img(image_file):
-    # Leer la imagen
-    image = Image.open(image_file)    
-    return image
+
 
 
 df1 = load_data(data_1)
@@ -55,7 +51,7 @@ df3 = load_geoData(data_3)
 
 data_choro = df1.set_index('COMUNA')['Total victimas 2021'].to_dict()
 
-image_path = 'BAM_logo.png'
+image = 'BAM_logo.png'
 
 #____________________________________________Tasa de accidentes anuales
 #____________Tasa anual de accidentes mortales 
@@ -143,7 +139,7 @@ with n2:
     with col1:
         st.subheader(f'{tasa_total_victimas}%')
     with col2:
-        st.image(load_img(a_up), use_column_width=True)
+        st.image(a_up, use_column_width=True)
     '---'  
     
     st.write('Muertes X 100,000 habitantes')
@@ -155,7 +151,7 @@ with n2:
     with col3:
         st.subheader(m100)      #Variacionde mortalidad cada 100000 habitantes 
     with col4:
-        st.image(load_img(a_up), use_column_width=True)
+        st.image(a_up, use_column_width=True)
     '---'  
     
     st.write('Poblacion Ciudad de Buenos Aires')
@@ -169,12 +165,11 @@ with n2:
         "---"
         "---"
         "---"
-        "---"
-        "---"
+        
         
 
-        image = 'BAM_logo.png'
-        st.image(load_img(image_path), use_column_width=True)
+        
+        st.image(image, use_column_width=True)
 
         st.caption(':grey[Observatorio de la Mobilidad de la ciudad de Buenos Aires. Area de Siniestros -- Baires 2024 --]')
     

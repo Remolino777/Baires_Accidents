@@ -1,15 +1,16 @@
 import pandas as pd
 import streamlit as st 
 import plotly.graph_objects as go
-from PIL import Image
+
 
 
 #____________________ Page configuration
 
 st.set_page_config(
-    layout='centered',
+    layout='centered',     
     initial_sidebar_state='auto'
 )
+
 
 #_____________________ Source dataset reading.
 data_1 = r"D:\0_Respaldo\0_Proyectos_2024\Henry_Labs\Lab2\Baires_Accidents\Data\ETL\siniestros_por_comuna.parquet"  ### Siniestros por comuna
@@ -28,11 +29,6 @@ def load_data(parquet_file_path):
     return df
 
 
-@st.cache_resource
-def load_img(image_file):
-    # Leer la imagen
-    image = Image.open(image_file)    
-    return image
 
 
 df1 = load_data(data_1)
@@ -43,6 +39,7 @@ dfc = load_data(data_4) #comisarias
 
 #____________Tasa  de accidentes mortales motociclistas 2021.
 df2_filtrado_21 = df2[(df2['AAAA'] == 2021) & (df2['VICTIMA'] == 'MOTO')]
+df2_filtrado_p = df2[(df2['AAAA'] == 2021) & (df2['VICTIMA'] == 'PEATON')]
 #total victimas (tv)  semestre(s)
 tv_2021 = df2_filtrado_21['N_VICTIMAS'].sum()
 
@@ -63,8 +60,8 @@ else:
         
 #____________Calculo para grafica de barras TAA 2021      ###### fig2
 # Total victimas (tv)
-tv_comuna = df2_filtrado_21.groupby('COMUNA')['N_VICTIMAS'].sum().reset_index()
-
+tv_comuna = df2_filtrado_21.groupby('COMUNA')['N_VICTIMAS'].sum().reset_index()   # Moto
+tv2_comuna = df2_filtrado_p.groupby('COMUNA')['N_VICTIMAS'].sum().reset_index()  # Peaton
 
 #____________Tasa  de accidentes mortales 2021.   ### fig 3
 
@@ -91,27 +88,30 @@ tv_semestre = round((p_21 - p_20),2)
 tv_comuna_2 = e2_filtrado_21.groupby('COMUNA')['N_VICTIMAS'].sum().reset_index()
 
 
-#____________Tasa  COMISARIAS 2021.   ### fig 5
+#____________Tasa  Peatones 2021.   ### fig 6
 
-dc_filtrado = dfc['nombre'].count()
+df3_filtrado_21 = df2[(df2['AAAA'] == 2021) & (df2['VICTIMA'] == 'PEATON')]
 #total victimas (tv)  semestre(s)
+tv2_2021 = df2_filtrado_21['N_VICTIMAS'].sum()
 
+df3_filtrado_20 = df2[(df2['AAAA'] == 2020) & (df2['VICTIMA'] == 'PEATON')]
+tv2_2020 = df3_filtrado_20['N_VICTIMAS'].sum()
 
-c_21 =  dc_filtrado/tv_pea_2021
-c_20 =  dc_filtrado/tv_pea_2020
+if tv2_2020 == 0:
+    tasa_pea = tv_2021*100
+else:    
+    #Manejar valor de cero
+    tv_pea = (tv2_2021 - tv2_2020)
 
-
-t_com = round((c_21 - c_20)/c_20,2)
-
-
-#____________Calculo comisarias TAA 2021      ###### fig6
-# Total victimas (tv)
-co_comuna = dfc.groupby('COMUNA')['nombre'].count().reset_index()
+    if tv_pea == 0:
+        tasa_pea = 0
+    else:
+        tasa_pea = (tv_pea/tv_2020)*100
 
 
 
 #______________________________________TABS
-tab1, tab2, tab3 = st.tabs(["TA SEMESTRE 2021","TA MOTOCICLISTAS 2021",  "TA COMISARIAS"])
+tab1, tab2, tab3 = st.tabs(["TA SEMESTRE 2021","TA MOTOCICLISTAS 2021",  "TA PEATONES 2021"])
 
 with tab2:    
     #___________________________________________________Graficas
@@ -120,7 +120,7 @@ with tab2:
         value = tasa_moto,
         mode = "gauge+number+delta",
         title = {'text': "Tasa de accidentes anuales motocicletas 2021"},
-        delta = {'reference': tasa_moto},
+        delta = {'reference': tv_2021},
         number={'suffix': '%'},
         gauge = {'axis': {'range': [None, tasa_moto]},
                 'steps' : [
@@ -176,29 +176,26 @@ with tab1:
 with tab3:
     
     
-    print(c_20)
-    print(c_21)
-    print(t_com)
-    fig5 = go.Figure(go.Indicator(                    ######COMISARIA
+    fig5 = go.Figure(go.Indicator(                    ######PEATON    ######PEATON
         domain = {'x': [0, 1], 'y': [0, 1]},
-        value = t_com,
+        value = tasa_pea,
         mode = "gauge+number+delta",
-        title = {'text': "Tasa anual de comisarias por total de siniestros en el 2021"},
-        delta = {'reference': c_21},
-        #number={'suffix': '%'},
-        gauge = {'axis': {'range': [None, c_20]},
+        title = {'text': "Tasa de accidentes anuales peatones 2021"},
+        delta = {'reference': tv2_2021},
+        number={'suffix': '%'},
+        gauge = {'axis': {'range': [None, tv2_2021]},
                 'steps' : [
-                    {'range': [0, c_21], 'color': "lightgreen"},
-                    {'range': [c_21, t_com], 'color': "lightpink"}],
-                'threshold' : {'line': {'color': "red", 'width': 10}, 'thickness': 0.75, 'value': c_20}}))
+                    {'range': [0, tv2_2020], 'color': "lightgreen"},
+                    {'range': [tv2_2020, tasa_pea], 'color': "lightpink"}],
+                'threshold' : {'line': {'color': "red", 'width': 10}, 'thickness': 0.75, 'value': tv2_2020}}))
 
     #_______________Barras 2
-    fig6= go.Figure([go.Bar(x=co_comuna['COMUNA'], y=co_comuna['nombre'], marker_color='mediumaquamarine')])
+    fig6 = go.Figure([go.Bar(x=tv2_comuna['COMUNA'], y=tv2_comuna['N_VICTIMAS'], marker_color='mediumaquamarine')])
 
-    fig6.update_layout(title='Total Comisarias por comuna del Año 2021',
+    fig6.update_layout(title='Total de Víctimas Mortales Peaton por Comuna en el Año 2021',
                     xaxis_title='Comuna',
-                    yaxis_title='Total de Comisarias',
-                    height=300) 
+                    yaxis_title='Total de Víctimas',
+                    height=300)       
     
     st.plotly_chart(fig5)
     st.plotly_chart(fig6)
@@ -206,8 +203,8 @@ with tab3:
 with st.sidebar:
     st.divider()
     st.divider()
-    st.divider()
-    st.divider()
+    
+    
     
     "---"
     "---"
@@ -216,6 +213,6 @@ with st.sidebar:
     
 
     image = 'BAM_logo.png'
-    st.image(load_img(image_path), use_column_width=True)
+    st.image(image, use_column_width=True)
 
     st.caption(':grey[Observatorio de la Mobilidad de la ciudad de Buenos Aires. Area de Siniestros -- Baires 2024 --]')

@@ -5,10 +5,10 @@ import plotly.express as px
 import folium
 from streamlit_folium import st_folium, folium_static
 from folium.plugins import MarkerCluster
-from PIL import Image
 import math
 #____________________ Page configuration
 
+image = "BAM_logo.png"
 
 st.set_page_config(
     layout='wide',
@@ -60,11 +60,6 @@ def load_geoData(geo_file_path):
     df = gpd.read_file(geo_file_path)
     return df
 
-@st.cache_resource
-def load_img(image_file):
-    # Leer la imagen
-    image = Image.open(image_file)    
-    return image
 
 
 df1 = load_data(data_1)
@@ -77,7 +72,7 @@ df4 = load_data(data_4)    #Comisarias
 
 # data_choro = df1.set_index('COMUNA')['Total victimas 2021'].to_dict()
 # current_page = st.session_state.get('current_page', 'Map')
-image_path = 'BAM_logo.png'
+imag = 'BAM_logo.png'
 select_comuna = 0
 #____________________________________________________________Side bar
 with st.sidebar:
@@ -89,10 +84,10 @@ with st.sidebar:
         "---"
         "---"
         "---"
-        "---"        
+            
 
-        image = 'BAM_logo.png'
-        st.image(load_img(image_path), use_column_width=True)
+        
+        st.image(image, use_column_width=True)
 
         st.caption(':grey[Observatorio de la Movilidad de la ciudad de Buenos Aires. Area de Siniestros -- Baires 2024 --]')
     
@@ -178,11 +173,11 @@ with n1:
         st.subheader(f"{tasa_moto}%") 
     with u2:        
         if tasa_moto > 0:        
-            st.image(load_img(a_up), use_column_width=True)
+            st.image(a_up, use_column_width=True)
         elif tasa_moto == 0:        
-            st.image(load_img(equal), use_column_width=True)
+            st.image(equal, use_column_width=True)
         else:
-            st.image(load_img(a_down), use_column_width=True)
+            st.image(a_down, use_column_width=True)
 with n2:
     st.write('Tasa Anual de Accidentes Mortales de Peatones')
     u3, u4= st.columns(2,gap='small')
@@ -190,11 +185,11 @@ with n2:
         st.subheader(f"{tasa_pea}%")  
     with u4:        
         if tasa_pea > 0:        
-            st.image(load_img(a_up), use_column_width=True)
+            st.image(a_up, use_column_width=True)
         elif tasa_pea == 0:        
-            st.image(load_img(equal), use_column_width=True)
+            st.image(equal, use_column_width=True)
         else:
-            st.image(load_img(a_down), use_column_width=True)
+            st.image(a_down, use_column_width=True)
 with n3:
     st.write(f'Muertes anuales X 100,000 habitantes comuna:{select_comuna}')
     u5, u6= st.columns(2,gap='small')
@@ -202,16 +197,16 @@ with n3:
         st.subheader(m100)         
     with u6:
         if m100 >= 0:        
-            st.image(load_img(a_up), use_column_width=True)
+            st.image(a_up, use_column_width=True)
         else:
-            st.image(load_img(a_down), use_column_width=True)
+            st.image(a_down, use_column_width=True)
 with n4:
     st.write('Comisarias X 100000 habitantes')
     u7, u8= st.columns(2,gap='small')
     with u7:
         st.subheader(com100) 
     with u8:        
-        st.image(load_img(equal), use_column_width=True)
+        st.image(equal, use_column_width=True)
         
 '---'  
 #____________________________________________________________Mapa

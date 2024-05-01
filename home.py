@@ -1,19 +1,19 @@
 import streamlit as st 
-from PIL import Image
+
 
 
 #____________________ Page configuration
 
 
 st.set_page_config(
-    layout='centered',
-    initial_sidebar_state='collapsed'
+    layout='wide',
+    initial_sidebar_state='auto'
 )
 #____________________ Variables
 
+img_path = "BAM_logo.png"
 
-image_path = 'BAM_logo.png'
-
+    
 #____________________Loading Data
 
 
@@ -21,21 +21,17 @@ image_path = 'BAM_logo.png'
 
 
 #____________________ Functions
-@st.cache_resource
-def load_img(image_file):
-    # Leer la imagen
-    image = Image.open(image_file)    
-    return image
 
+
+cl1, cl2, cl3, = st.columns([1,4,1])
 
 #____________________ Body
 
-
 st.divider()
 st.divider()
 st.divider()
 
-st.image(load_img(image_path), use_column_width=True)
+st.image(img_path, use_column_width=True)
 
 st.divider()
 st.divider()
@@ -46,8 +42,7 @@ st.divider()
 with st.sidebar:
     st.divider()
     st.divider()
-    st.divider()
-    st.divider()
+    
     "---"
     "---"
     "---"
@@ -56,7 +51,7 @@ with st.sidebar:
     
 
     image = 'BAM_logo.png'
-    st.image(load_img(image_path), use_column_width=True)
+    st.image(img_path, use_column_width=True)
 
     st.caption(':grey[Observatorio de la Mobilidad de la ciudad de Buenos Aires. Area de Siniestros -- Baires 2024 --]')
    
