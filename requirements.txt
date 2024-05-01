@@ -1,4 +1,5 @@
 streamlit
+fastparquet    #Importante para que pueda leer los archivos parquet.
 pandas
 geopandas
 plotly.express
