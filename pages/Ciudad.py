@@ -3,7 +3,7 @@ import geopandas as gpd
 import streamlit as st 
 import folium
 from streamlit_folium import st_folium, folium_static
-import plotly.express as px
+
 
 
 #____________________ Page configuration
@@ -15,9 +15,9 @@ st.set_page_config(
 )
 
 #_____________________ Source dataset reading.
-data_1 = "siniestros_por_comuna.parquet"  ### Siniestros por comuna
-data_2 =  "siniestros.parquet"  ### Siniestros por tipo
-data_3 = "comunas.geojson"  ### Geodata
+data_1 ="siniestros_por_comuna.parquet"  ### Siniestros por comuna
+data_2 ="siniestros.parquet"  ### Siniestros por tipo
+data_3 ="https://raw.githubusercontent.com/Remolino777/Baires_Accidents/main/comunas.geojson"  ### Geodata
 
 
 
@@ -79,11 +79,6 @@ m2020 = int(((df1['Total victimas 2020'].sum())/(df1['Poblacion 2020'].iloc[0]))
 m100 = m2021-m2020
 
 poblacion_2021 = df1['Poblacion 2021'].sum()
-
-
-
-
-
 
 
 #_______________________ Columns
